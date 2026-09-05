@@ -98,7 +98,7 @@ This repository is optimized for **GitHub Pages**:
 
 ## 🏛️ Academic Attribution & Credits
 
-Developed as an interactive learning & research workbench for the **Department of Informatics, Sanata Dharma University**.
+Developed as an interactive learning & research workbench for my self 😊.
 
 ---
 
