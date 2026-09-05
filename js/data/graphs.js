@@ -78,3 +78,19 @@ export const empiricalDatasets = [
         ]
     }
 ];
+
+export const PRESET_GRAPHS = {
+    karate: empiricalDatasets[1],
+    florentine: empiricalDatasets[2],
+    warsaw: empiricalDatasets[0],
+    custom: {
+        nodes: [{ id: "A" }, { id: "B" }, { id: "C" }, { id: "D" }],
+        links: [
+            { source: "A", target: "B" },
+            { source: "B", target: "C" },
+            { source: "C", target: "D" },
+            { source: "D", target: "A" },
+            { source: "A", target: "C" }
+        ]
+    }
+};
