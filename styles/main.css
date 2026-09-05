@@ -1,0 +1,115 @@
+/* ==========================================
+   MAIN STYLESHEET (Base, Layout & Typography)
+   Social Network Knowledge Hub
+   ========================================== */
+
+/* Base HTML & Reset */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #f8fafc;
+    color: #0f172a;
+    font-family: 'Outfit', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+    background-color: #10b981;
+    color: #ffffff;
+}
+
+/* Scrollbar Customization */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Chart Container Heights */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 340px;
+}
+
+/* Typography & Prose Markdown Rendering */
+.prose h1, .prose h2, .prose h3, .prose h4 {
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.prose p {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.prose ul, .prose ol {
+    margin-left: 1.25rem;
+    margin-bottom: 0.75rem;
+    list-style-type: disc;
+}
+
+.prose code {
+    background: #f1f5f9;
+    color: #0284c7;
+    padding: 0.15rem 0.35rem;
+    border-radius: 0.25rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+}
+
+.prose pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.prose blockquote {
+    border-left: 4px solid #10b981;
+    padding-left: 1rem;
+    color: #475569;
+    font-style: italic;
+    margin-bottom: 0.75rem;
+}
+
+.prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+.prose th, .prose td {
+    border: 1px solid #e2e8f0;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+}
+
+.prose th {
+    background: #f8fafc;
+    font-weight: 700;
+}
