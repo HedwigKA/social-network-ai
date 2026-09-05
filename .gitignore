@@ -1,0 +1,8 @@
+# Ignore large PDF files and temporary scratch files
+*.pdf
+scratch/
+.tempmediaStorage/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
