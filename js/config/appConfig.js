@@ -5,19 +5,34 @@
 
 export const APP_CONFIG = {
     appName: "Social Network Knowledge Hub",
-    version: "2.0.0",
-    storageKeys: {
-        apiKey: "prof_ai_gemini_key",
-        model: "prof_ai_gemini_model",
-        customModel: "prof_ai_gemini_custom_model",
-        grounding: "prof_ai_gemini_grounding",
-        sessions: "prof_ai_research_sessions",
-        activeSession: "prof_ai_active_session_id"
-    },
-    defaultModel: "gemini-2.5-flash",
-    fallbackModel: "gemini-1.5-flash",
-    apiEndpointBase: "https://generativelanguage.googleapis.com/v1beta/models"
+    version: "2.0.0"
 };
+
+export const STORAGE_KEY_API_KEY = "prof_ai_gemini_key";
+export const STORAGE_KEY_MODEL = "prof_ai_gemini_model";
+export const STORAGE_KEY_CUSTOM_MODEL = "prof_ai_gemini_custom_model";
+export const STORAGE_KEY_SEARCH_GROUNDING = "prof_ai_gemini_grounding";
+export const STORAGE_KEY_PROF_SESSIONS = "prof_ai_research_sessions";
+export const STORAGE_KEY_ACTIVE_SESSION = "prof_ai_active_session_id";
+
+export const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
+export const DEFAULT_API_KEY = "";
+export const GEMINI_API_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models";
+
+export const GEMINI_FALLBACK_MODELS = [
+    "gemini-2.5-flash",
+    "gemini-2.5-pro",
+    "gemini-3-flash-preview",
+    "gemini-1.5-flash"
+];
+
+export const GEMINI_MODELS = [
+    { id: "gemini-2.5-flash", name: "⚡ Gemini 2.5 Flash (Standar Rilis - Sangat Cepat & Stabil)" },
+    { id: "gemini-2.5-pro", name: "🏛️ Gemini 2.5 Pro (Analisis Logika Tinggi & Context 1M)" },
+    { id: "gemini-3-flash-preview", name: "✨ Gemini 3 Flash Preview (Eksperimental Terkini)" },
+    { id: "gemini-3-pro-preview", name: "🧠 Gemini 3 Pro Preview" },
+    { id: "gemini-1.5-flash", name: "📌 Gemini 1.5 Flash (Fallback Teruji)" }
+];
 
 export const PROF_MODES_CONFIG = {
     gap: {
