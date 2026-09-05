@@ -93,5 +93,5 @@ Dikembangkan sebagai materi pembelajaran interaktif dan alat bantu riset di **Pr
 ---
 
 <div align="center">
-  <sub>Dibuat dengan ❤️.</sub>
+  <sub>Dibuat dengan ❤️</sub>
 </div>
