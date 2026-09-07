@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan & Eksplorasi Interaktif Social Network Informatika</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        accent: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        },
+                        slateBg: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slateBg text-slate-800 font-sans antialiased leading-relaxed selection:bg-brand-500 selection:text-white">
+
+    <!-- Chosen Palette: Warm Neutral Harmonious - Slate Background, Emerald & Sky Blue Accents -->
+    <!-- Application Structure Plan: Single Page Dashboard dengan 8 Modul Tematik Interaktif:
+         1. Hero & Overview Dashboard (Ringkasan Statistik & Navigasi Cepat)
+         2. Glosarium & Konsep Dasar (Filterable Cards + Search untuk 17 Metrik/Istilah)
+         3. Taksonomi Keilmuan (Social Network vs SNA vs Network Science)
+         4. Sinergi 12 Cabang Informatika (Interactive Grid & Detail Card Viewer)
+         5. Simulasi Representasi Komputasional Graf (Interactive Live Canvas Visualizer & Adjacency Matrix Generator)
+         6. Metrik Analisis & Sentralitas (Interactive Centrality Radar Chart & Formula Toggler)
+         7. Machine Learning & Paradigma GNN (Message Passing Simulator & Comparative Task Grid)
+         8. Katalog Riset & Skripsi (Filterable Research Problems & Detailed Thesis Blueprints)
+         9. Roadmap Belajar & Peta Konsep Hierarkis (Interactive Step-by-Step Learning Timeline)
+    -->
+    <!-- Visualization & Content Choices: 
+         - Chart.js Canvas untuk perbandingan matriks representasi & radar sentralitas.
+         - HTML Canvas murni untuk interactive graph builder.
+         - Tailwind Flex/Grid & JS state untuk simulasi Message Passing & Peta Konsep Hierarkis.
+         - Confirming NO SVG used, NO Mermaid JS used.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-xl shadow-md">
+                        🕸️
+                    </div>
+                    <div>
+                        <span class="font-bold text-lg text-slate-900 block leading-tight">SNA Informatika</span>
+                        <span class="text-xs text-slate-500">Interactive Knowledge Hub</span>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-1 text-sm font-medium text-slate-600">
+                    <a href="#konsep-dasar" class="px-3 py-2 rounded-md hover:text-brand-600 hover:bg-slate-100 transition">Konsep Dasar</a>
+                    <a href="#taksonomi" class="px-3 py-2 rounded-md hover:text-brand-600 hover:bg-slate-100 transition">Taksonomi</a>
+                    <a href="#informatika" class="px-3 py-2 rounded-md hover:text-brand-600 hover:bg-slate-100 transition">Sinergi CS</a>
+                    <a href="#simulasi-graf" class="px-3 py-2 rounded-md hover:text-brand-600 hover:bg-slate-100 transition">Simulator Graf</a>
+                    <a href="#sentralitas" class="px-3 py-2 rounded-md hover:text-brand-600 hover:bg-slate-100 transition">Sentralitas</a>
+                    <a href="#ml-gnn" class="px-3 py-2 rounded-md hover:text-brand-600 hover:bg-slate-100 transition">ML & GNN</a>
+                    <a href="#ai-lab" class="px-3 py-2 rounded-md text-brand-700 bg-brand-50 border border-brand-200 font-semibold hover:bg-brand-100 transition flex items-center gap-1">✨ AI Lab</a>
+                    <a href="#riset-skripsi" class="px-3 py-2 rounded-md hover:text-brand-600 hover:bg-slate-100 transition">Riset & Skripsi</a>
+                    <a href="#roadmap" class="px-3 py-2 rounded-md hover:text-brand-600 hover:bg-slate-100 transition">Roadmap</a>
+                </nav>
+                <button id="mobile-menu-btn" class="md:hidden text-slate-600 hover:text-slate-900 focus:outline-none text-2xl">
+                    ☰
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2 text-sm">
+            <a href="#konsep-dasar" class="block px-3 py-2 rounded-md hover:bg-slate-100">Konsep Dasar</a>
+            <a href="#taksonomi" class="block px-3 py-2 rounded-md hover:bg-slate-100">Taksonomi</a>
+            <a href="#informatika" class="block px-3 py-2 rounded-md hover:bg-slate-100">Sinergi CS</a>
+            <a href="#simulasi-graf" class="block px-3 py-2 rounded-md hover:bg-slate-100">Simulator Graf</a>
+            <a href="#sentralitas" class="block px-3 py-2 rounded-md hover:bg-slate-100">Sentralitas</a>
+            <a href="#ml-gnn" class="block px-3 py-2 rounded-md hover:bg-slate-100">ML & GNN</a>
+            <a href="#ai-lab" class="block px-3 py-2 rounded-md font-semibold text-brand-700 bg-brand-50">✨ AI Lab (Gemini)</a>
+            <a href="#riset-skripsi" class="block px-3 py-2 rounded-md hover:bg-slate-100">Riset & Skripsi</a>
+            <a href="#roadmap" class="block px-3 py-2 rounded-md hover:bg-slate-100">Roadmap</a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- HERO & SUMMARY BANNER -->
+        <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden">
+            <div class="relative z-10 max-w-3xl space-y-4">
+                <div class="inline-flex items-center space-x-2 bg-brand-500/20 text-brand-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wide border border-brand-500/30">
+                    <span>🎓 Panduan Komprehensif Akademik Informatika</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                    Arsitektur, Analisis & Machine Learning pada <span class="text-brand-500">Social Network</span>
+                </h1>
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                    Jelajahi bagaimana representasi relasional non-Euclidean meruntuhkan asumsi data klasik i.i.d., menggerakkan basis data graf, hingga melahirkan paradigma <span class="text-brand-300 font-semibold">Graph Neural Networks (GNN)</span> dan <span class="text-accent-300 font-semibold">GraphRAG</span>.
+                </p>
+                <div class="pt-4 flex flex-wrap gap-3">
+                    <a href="#konsep-dasar" class="bg-brand-600 hover:bg-brand-500 text-white font-medium px-5 py-2.5 rounded-xl shadow-lg hover:shadow-brand-500/25 transition">Mulai Dari Konsep Dasar</a>
+                    <a href="#simulasi-graf" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-medium px-5 py-2.5 rounded-xl border border-slate-600 transition">Coba Simulator Graf</a>
+                </div>
+            </div>
+            
+            <!-- Quick Stats Metrics -->
+            <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-slate-700/60 relative z-10">
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                    <div class="text-2xl font-bold text-brand-400">12 Sub-Bidang</div>
+                    <div class="text-xs text-slate-400">Integrasi Cabang Informatika</div>
+                </div>
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                    <div class="text-2xl font-bold text-accent-400">6 Metrik Sentralitas</div>
+                    <div class="text-xs text-slate-400">Pengukuran Otoritas & Jembatan</div>
+                </div>
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                    <div class="text-2xl font-bold text-emerald-400">10 Contoh Riset</div>
+                    <div class="text-xs text-slate-400">Studi Kasus Dunia Nyata</div>
+                </div>
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                    <div class="text-2xl font-bold text-amber-400">6 Tahap Learning</div>
+                    <div class="text-xs text-slate-400">Roadmap Belajar Pemula-Riset</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: GAMBARAN BESAR & KONSEP DASAR -->
+        <section id="konsep-dasar" class="space-y-8 scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-brand-100 text-brand-700 font-bold px-3 py-1 rounded-lg text-sm">Modul 1</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Gambaran Besar & Konsep Dasar yang Wajib Dipahami</h2>
+                </div>
+                <p class="text-slate-600 mt-2">
+                    Bagian ini menjelaskan abstraksi jaringan sosial sebagai model matematis relasional, analogi intuitif infrastruktur penerbangan & simposium ilmiah, serta glosarium interaktif 17 terminologi kunci dalam studi jaringan.
+                </p>
+            </div>
+
+            <!-- Intuitive Analogy Cards -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="text-3xl">✈️</div>
+                    <h3 class="text-lg font-bold text-slate-900">Analogi 1: Penerbangan Sipil Internasional</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Kota-kota metropolitan bertindak sebagai <span class="font-semibold text-brand-700">Simpul (Nodes)</span>, sedangkan rute penerbangan langsung yang menghubungkan dua bandara adalah <span class="font-semibold text-brand-700">Sisi (Edges)</span>. Penumpang dan kargo yang lalu lalang mencerminkan <span class="font-semibold text-slate-800">aliran data, sumber daya, atau pengaruh sosial</span>.
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="text-3xl">🤝</div>
+                    <h3 class="text-lg font-bold text-slate-900">Analogi 2: Simposium Ilmiah & Konferensi</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Para peneliti dan akademisi merepresentasikan <span class="font-semibold text-brand-700">Simpul (Nodes)</span>. Percakapan, jabat tangan, dan pertukaran kartu nama di lorong ruang konferensi membentuk <span class="font-semibold text-brand-700">Sisi (Edges)</span> yang merekatkan komunitas ilmuwan dalam topologi jaringan terukur.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Interactive Terminology Explorer -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Glosarium Interaktif & Istilah Penting</h3>
+                        <p class="text-xs text-slate-500">Klik atau cari istilah untuk memfilter konsep dasar yang wajib dikuasai.</p>
+                    </div>
+                    <div class="w-full sm:w-72">
+                        <input type="text" id="glossary-search" placeholder="Cari istilah (cth: Degree, Path)..." class="w-full px-4 py-2 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    </div>
+                </div>
+
+                <!-- Glossary Cards Container -->
+                <div id="glossary-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Cards will be dynamically loaded via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: TAKSONOMI KEILMUAN -->
+        <section id="taksonomi" class="space-y-8 scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-brand-100 text-brand-700 font-bold px-3 py-1 rounded-lg text-sm">Modul 2</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Social Network vs SNA vs Network Science</h2>
+                </div>
+                <p class="text-slate-600 mt-2">
+                    Bagian ini meluruskan kekeliruan umum dengan membedakan posisi ontologis antara objek data empiris (Social Network), metodologi analitis (SNA), dan disiplin ilmu payung (Network Science).
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-emerald-500 shadow-sm space-y-3">
+                    <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">Obstruksi Data</span>
+                    <h3 class="text-xl font-bold text-slate-900">Social Network</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        <strong>Objek empiris & struktur data relasional.</strong> Merupakan wujud data itu sendiri—kumpulan simpul aktor dan jalinan interaksi di dunia nyata (misal: jejaring pertemanan Facebook, akun X, atau graf sitasi).
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-sky-500 shadow-sm space-y-3">
+                    <span class="text-xs font-bold text-sky-600 bg-sky-50 px-2.5 py-1 rounded-full">Metodologi Analitis</span>
+                    <h3 class="text-xl font-bold text-slate-900">Social Network Analysis (SNA)</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        <strong>Metodologi komputasional & statistik.</strong> Perangkat khusus untuk mengekstrak, mengukur metrik sentralitas, memodelkan, memvisualisasikan, dan menguji hipotesis sosiologis pada data jaringan sosial.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-indigo-500 shadow-sm space-y-3">
+                    <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">Disiplin Keilmuan Payung</span>
+                    <h3 class="text-xl font-bold text-slate-900">Network Science</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        <strong>Riset interdisipliner terpadu.</strong> Mempelajari prinsip matematis universal dari semua jenis jaringan kompleks—termasuk graf biologis (protein), jaringan listrik (*smart grid*), hingga jaringan sosial.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Structured Comparison Table -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-slate-50 border-b border-slate-200">
+                    <h4 class="font-bold text-slate-800">Tabel Perbandingan Dimensi Taksonomi</h4>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-slate-600">
+                        <thead class="text-xs text-slate-700 uppercase bg-slate-100/70 border-b border-slate-200">
+                            <tr>
+                                <th class="px-6 py-3">Dimensi</th>
+                                <th class="px-6 py-3">Social Network</th>
+                                <th class="px-6 py-3">Social Network Analysis (SNA)</th>
+                                <th class="px-6 py-3">Network Science</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr>
+                                <td class="px-6 py-4 font-semibold text-slate-900">Kedudukan Ontologis</td>
+                                <td class="px-6 py-4">Objek empiris / Data relasional</td>
+                                <td class="px-6 py-4">Metodologi & algoritma komputasi</td>
+                                <td class="px-6 py-4">Disiplin keilmuan payung lintas sektor</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-semibold text-slate-900">Fokus Utama</td>
+                                <td class="px-6 py-4">Entitas manusia, akun sosial, interaksi</td>
+                                <td class="px-6 py-4">Kalkulasi sentralitas, komunitas, perambatan</td>
+                                <td class="px-6 py-4">Hukum pertumbuhan, perkolasi, skala-bebas</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-semibold text-slate-900">Bentuk Output</td>
+                                <td class="px-6 py-4">Graf relasi aktor & transaksi</td>
+                                <td class="px-6 py-4">Skor sentralitas, partisi klaster, visualisasi</td>
+                                <td class="px-6 py-4">Teorema keterhubungan, model pertumbuhan graf</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: SINERGI DENGAN INFORMATIKA -->
+        <section id="informatika" class="space-y-8 scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-brand-100 text-brand-700 font-bold px-3 py-1 rounded-lg text-sm">Modul 3</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Hubungan Social Network dengan 12 Cabang Ilmu Informatika</h2>
+                </div>
+                <p class="text-slate-600 mt-2">
+                    Jaringan sosial bukan sekadar fenomena sosiologis, melainkan pendorong utama inovasi pada 12 fondasi komputasi modern. Pilih cabang ilmu di bawah ini untuk melihat relevansi, konsep kunci, dan contoh penerapannya.
+                </p>
+            </div>
+
+            <!-- Domain Interactive Tabs Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3" id="domain-tabs">
+                <!-- Loaded dynamically by JS -->
+            </div>
+
+            <!-- Selected Domain Detail Display Box -->
+            <div id="domain-detail-box" class="bg-white p-6 sm:p-8 rounded-2xl border border-brand-200 shadow-md space-y-4 relative">
+                <!-- Content inserted by JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 4: SIMULASI REPRESENTASI KOMPUTASIONAL GRAF -->
+        <section id="simulasi-graf" class="space-y-8 scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-brand-100 text-brand-700 font-bold px-3 py-1 rounded-lg text-sm">Modul 4</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Representasi Data Komputasional & Simulator Interaktif</h2>
+                </div>
+                <p class="text-slate-600 mt-2">
+                    Bagian ini mengizinkan Anda membangun graf mini secara langsung di layar untuk mengamati bagaimana komputer mengodekan topologi ke dalam <strong>Adjacency Matrix</strong>, <strong>Adjacency List</strong>, dan <strong>Edge List</strong> secara *real-time*.
+                </p>
+            </div>
+
+            <!-- Interactive Graph Canvas Builder & Matrix Generator -->
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left: Canvas Graph Interaction (7 Cols) -->
+                <div class="lg:col-span-7 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex flex-wrap justify-between items-center gap-2">
+                        <div>
+                            <h3 class="font-bold text-slate-900">Simulator Graf Canvas Interaktif</h3>
+                            <p class="text-xs text-slate-500">Klik pada canvas untuk menambah Simpul, atau klik 2 simpul berurutan untuk membuat Sisi.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button id="ai-analyze-graph-btn" class="text-xs bg-brand-50 text-brand-700 border border-brand-300 px-3 py-1.5 rounded-lg font-semibold hover:bg-brand-100 transition flex items-center gap-1.5">
+                                <span>🤖 Analisis Topologi AI</span>
+                            </button>
+                            <button id="reset-graph-btn" class="text-xs bg-rose-50 text-rose-600 px-3 py-1.5 rounded-lg font-semibold hover:bg-rose-100 transition">
+                                🔄 Reset Graf
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="relative bg-slate-50 rounded-xl border border-slate-300 overflow-hidden flex justify-center items-center">
+                        <canvas id="graphCanvas" width="550" height="320" class="cursor-pointer max-w-full"></canvas>
+                    </div>
+
+                    <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span>Total Simpul: <strong id="node-count-badge" class="text-brand-600">4</strong></span>
+                        <span>Total Sisi: <strong id="edge-count-badge" class="text-brand-600">3</strong></span>
+                        <span class="italic">Mode: Klik Simpul untuk Sambung Sisi</span>
+                    </div>
+
+                    <!-- AI Graph Analysis Result Container -->
+                    <div id="ai-graph-analysis-container" class="hidden p-4 rounded-xl border border-brand-200 bg-brand-50/70 space-y-2 transition-all">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-base">✨</span>
+                                <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wide">Evaluasi Topologi oleh Dosen Senior AI</h4>
+                            </div>
+                            <button id="close-ai-analysis-btn" class="text-slate-400 hover:text-slate-700 text-xs">✕ Tutup</button>
+                        </div>
+                        <div id="ai-graph-analysis-text" class="text-xs text-slate-700 leading-relaxed font-sans">
+                            <!-- Populated by Gemini API -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Code Representation Outputs (5 Cols) -->
+                <div class="lg:col-span-5 space-y-4">
+                    <!-- Tab Switchers for Output Formats -->
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <div class="flex space-x-2 border-b border-slate-200 pb-2">
+                            <button id="tab-adj-mat" onclick="switchRepTab('adj-mat')" class="px-3 py-1 text-xs font-bold rounded-lg bg-brand-600 text-white">Adjacency Matrix</button>
+                            <button id="tab-adj-list" onclick="switchRepTab('adj-list')" class="px-3 py-1 text-xs font-bold rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200">Adjacency List</button>
+                            <button id="tab-edge-list" onclick="switchRepTab('edge-list')" class="px-3 py-1 text-xs font-bold rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200">Edge List</button>
+                        </div>
+
+                        <!-- Code Box Displays -->
+                        <div id="rep-display-area" class="font-mono text-xs bg-slate-900 text-emerald-400 p-4 rounded-xl min-h-[180px] overflow-x-auto custom-scrollbar">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Complexity Comparison Chart -->
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                        <h4 class="text-xs font-bold text-slate-700">Kompleksitas Ruang & Operasi Graf</h4>
+                        <div class="chart-container" style="height: 180px;">
+                            <canvas id="complexityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: METRIK ANALISIS & SENTRALITAS -->
+        <section id="sentralitas" class="space-y-8 scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-brand-100 text-brand-700 font-bold px-3 py-1 rounded-lg text-sm">Modul 5</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Cara Menganalisis Social Network & Metrik Sentralitas</h2>
+                </div>
+                <p class="text-slate-600 mt-2">
+                    Analisis jaringan mengkuantifikasi peran individu melalui metrik sentralitas dan membedah modularitas kelompok. Tidak ada satu pun metrik sentralitas yang paling unggul; masing-masing mengukur aspek struktural yang berbeda.
+                </p>
+            </div>
+
+            <!-- Radar Chart Visualizing Centrality Profiles -->
+            <div class="grid lg:grid-cols-12 gap-8 items-center bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="lg:col-span-6 space-y-4">
+                    <h3 class="text-xl font-bold text-slate-900">Perbandingan Profil Peran Aktor dalam Jaringan</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Grafik radar di samping memperlihatkan bagaimana profil numerik dari 4 jenis peran simpul berbeda secara signifikan:
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-600">
+                        <li class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                            <span><strong>Hub Akun Populer:</strong> Memiliki <em>Degree Centrality</em> sangat tinggi tetapi belum tentu menjadi pengendali jalur.</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-sky-500 inline-block"></span>
+                            <span><strong>Broker / Perantara (Gatekeeper):</strong> Memiliki <em>Betweenness Centrality</em> puncak karena menjembatani antar-klaster.</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-indigo-500 inline-block"></span>
+                            <span><strong>Inisiator Penyiaran:</strong> Memiliki <em>Closeness Centrality</em> tinggi untuk menjangkau seluruh jaringan paling cepat.</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+                            <span><strong>Otoritas Tersembunyi:</strong> Memiliki <em>Eigenvector / PageRank</em> tinggi karena terhubung ke aktor-aktor elit.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="lg:col-span-6 flex justify-center">
+                    <div class="chart-container">
+                        <canvas id="centralityRadarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formula vs Intuition Cards Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Degree Centrality -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-slate-900">Degree Centrality</h4>
+                        <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Mikro</span>
+                    </div>
+                    <p class="text-xs text-slate-600"><strong>Intuisi:</strong> Mengukur popularitas lokal langsung berdasarkan jumlah kontak aktif.</p>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 font-mono text-xs text-slate-800">
+                        C_D(v) = deg(v) / (|V| - 1)
+                    </div>
+                </div>
+
+                <!-- Betweenness Centrality -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-slate-900">Betweenness Centrality</h4>
+                        <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Makro</span>
+                    </div>
+                    <p class="text-xs text-slate-600"><strong>Intuisi:</strong> Peran sebagai jembatan perantara atau pengendali gerbang informasi (broker).</p>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 font-mono text-xs text-slate-800">
+                        C_B(v) = ∑ [σ_st(v) / σ_st]
+                    </div>
+                </div>
+
+                <!-- Closeness Centrality -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-slate-900">Closeness Centrality</h4>
+                        <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Makro</span>
+                    </div>
+                    <p class="text-xs text-slate-600"><strong>Intuisi:</strong> Kecepatan independen simpul untuk mendiseminasikan sinyal ke seluruh sistem.</p>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 font-mono text-xs text-slate-800">
+                        C_C(v) = (|V| - 1) / ∑ d(v, u)
+                    </div>
+                </div>
+
+                <!-- Eigenvector Centrality -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-slate-900">Eigenvector Centrality</h4>
+                        <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Meso-Makro</span>
+                    </div>
+                    <p class="text-xs text-slate-600"><strong>Intuisi:</strong> Mutu dan prestise koneksi (penting karena terhubung ke orang penting).</p>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 font-mono text-xs text-slate-800">
+                        λ x_v = ∑ A_uv x_u
+                    </div>
+                </div>
+
+                <!-- PageRank -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-slate-900">PageRank</h4>
+                        <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Makro</span>
+                    </div>
+                    <p class="text-xs text-slate-600"><strong>Intuisi:</strong> Probabilitas penjelajah acak (*random surfer*) dengan mekanisme *teleportation*.</p>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 font-mono text-xs text-slate-800">
+                        PR(u) = (1-d)/|V| + d ∑ [PR(v)/L(v)]
+                    </div>
+                </div>
+
+                <!-- Community Detection -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-slate-900">Community Detection</h4>
+                        <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded">Meso</span>
+                    </div>
+                    <p class="text-xs text-slate-600"><strong>Intuisi:</strong> Mengelompokkan simpul dengan ikatan internal pekat via Modularitas (Q) Louvain/Leiden.</p>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 font-mono text-xs text-slate-800">
+                        Q = (1/2m) ∑ [A_ij - (k_i k_j)/2m] δ
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: MACHINE LEARNING & GNN -->
+        <section id="ml-gnn" class="space-y-8 scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-brand-100 text-brand-700 font-bold px-3 py-1 rounded-lg text-sm">Modul 6</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Machine Learning & Paradigma Graph Neural Networks (GNN)</h2>
+                </div>
+                <p class="text-slate-600 mt-2">
+                    Evolusi dari rekayasa fitur topologi manual menuju pembelajaran representasi otomatis diferensiabel *end-to-end* melalui mekanisme <strong>Message Passing</strong>.
+                </p>
+            </div>
+
+            <!-- Message Passing Interactive Step-by-Step Simulator -->
+            <div class="bg-slate-900 text-white p-6 sm:p-8 rounded-3xl shadow-xl space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 border-b border-slate-800 pb-4">
+                    <div>
+                        <span class="text-brand-400 text-xs font-bold uppercase tracking-wider">Simulasi Konseptual GNN</span>
+                        <h3 class="text-xl font-bold text-white">Prinsip Kerja Message Passing Layer</h3>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button id="mp-step-1" onclick="setMPStep(1)" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-600 text-white">Lapisan 1: Agregasi Tetangga</button>
+                        <button id="mp-step-2" onclick="setMPStep(2)" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-white">Lapisan 2: Update Embedding</button>
+                    </div>
+                </div>
+
+                <div id="mp-step-content" class="grid md:grid-cols-3 gap-6 items-center">
+                    <!-- Populated dynamically by JS -->
+                </div>
+            </div>
+
+            <!-- ML Tasks Taxonomy Cards -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <div class="text-xs font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded w-max">Node Level</div>
+                    <h4 class="font-bold text-slate-900">Node Classification</h4>
+                    <p class="text-xs text-slate-600">Memprediksi kategori/peran simpul (cth: mendeteksi akun bot terkoordinasi atau memprediksi minat peneliti).</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <div class="text-xs font-bold text-sky-600 bg-sky-50 px-2 py-0.5 rounded w-max">Edge Level</div>
+                    <h4 class="font-bold text-slate-900">Link Prediction</h4>
+                    <p class="text-xs text-slate-600">Mengestimasi probabilitas terbentuknya sisi baru di masa depan (cth: saran pertemanan atau penyelesaian Knowledge Graph).</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <div class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded w-max">Sub-Graph Level</div>
+                    <h4 class="font-bold text-slate-900">Community Detection</h4>
+                    <p class="text-xs text-slate-600">Mempartisi simpul ke dalam kelompok fungsional dengan menggabungkan fitur konten dan topologi secara simultan.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <div class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded w-max">Graph Level</div>
+                    <h4 class="font-bold text-slate-900">Graph Classification</h4>
+                    <p class="text-xs text-slate-600">Memberikan label pada keseluruhan graf utuh (cth: memprediksi toksisitas atau pola diskursus percakapan).</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <div class="text-xs font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded w-max">System Level</div>
+                    <h4 class="font-bold text-slate-900">Graph Recommendation</h4>
+                    <p class="text-xs text-slate-600">Memanfaatkan perambatan representasi multi-hop pada graf bipartit pengguna-item (cth: LightGCN).</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                    <div class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded w-max">AI Generation</div>
+                    <h4 class="font-bold text-slate-900">GraphRAG & LLM Integration</h4>
+                    <p class="text-xs text-slate-600">Mengekstraksi komunitas hirarkis Leiden & menyuplai konteks terstruktur pada LLM untuk penalaran bebas halusinasi.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: GEMINI AI RESEARCH LAB -->
+        <section id="ai-lab" class="space-y-8 scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-gradient-to-r from-brand-600 to-accent-600 text-white font-bold px-3 py-1 rounded-lg text-sm shadow-sm">AI Lab</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Laboratorium Riset & Bimbingan AI (Gemini Flash)</h2>
+                </div>
+                <p class="text-slate-600 mt-2">
+                    Gunakan kecerdasan buatan berbasis <strong>Gemini 3 Flash</strong> dengan penelusuran web (*Google Search Grounding*) untuk mendiskusikan konsep SNA, merumuskan hipotesis, dan menyusun draf proposal skripsi otomatis.
+                </p>
+            </div>
+
+            <!-- Lab Tabs Container -->
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="flex border-b border-slate-200 bg-slate-50/70 p-2 gap-2">
+                    <button id="ai-tab-mentor-btn" onclick="switchAILabTab('mentor')" class="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-brand-700 shadow-sm border border-slate-200 transition flex items-center justify-center gap-2">
+                        <span>🎓 Dosen Mentor SNA Virtual</span>
+                        <span class="text-[10px] bg-brand-100 text-brand-700 px-2 py-0.5 rounded-full hidden sm:inline">Search Grounded</span>
+                    </button>
+                    <button id="ai-tab-proposal-btn" onclick="switchAILabTab('proposal')" class="flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white hover:text-slate-900 transition flex items-center justify-center gap-2">
+                        <span>📝 Generator Proposal Skripsi AI</span>
+                        <span class="text-[10px] bg-accent-100 text-accent-700 px-2 py-0.5 rounded-full hidden sm:inline">Structured Schema</span>
+                    </button>
+                </div>
+
+                <!-- Tab 1: AI Mentor & Research Q&A -->
+                <div id="ai-mentor-panel" class="p-6 sm:p-8 space-y-6">
+                    <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200">
+                        <label class="block text-xs font-bold text-slate-800 mb-1">Pilih Pertanyaan Cepat (Atau ketik sendiri di bawah):</label>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="setMentorPrompt('Jelaskan intuisi perbedaan mendasar antara Betweenness Centrality dan Eigenvector Centrality dengan contoh konkret pada investigasi kejahatan terorganisasi.')" class="text-xs bg-white text-slate-700 hover:border-brand-500 hover:text-brand-600 px-3 py-1.5 rounded-lg border border-slate-200 transition">
+                                ⚖️ Betweenness vs Eigenvector di Kasus Nyata
+                            </button>
+                            <button onclick="setMentorPrompt('Bagaimana arsitektur GraphRAG (Graph-based Retrieval-Augmented Generation) memanfaatkan algoritma Leiden untuk mencegah halusinasi fakta pada LLM?')" class="text-xs bg-white text-slate-700 hover:border-brand-500 hover:text-brand-600 px-3 py-1.5 rounded-lg border border-slate-200 transition">
+                                🧠 Mekanisme GraphRAG & Leiden
+                            </button>
+                            <button onclick="setMentorPrompt('Kapan sebaiknya seorang peneliti menggunakan Graph Convolutional Networks (GCN) dibandingkan Graph Attention Networks (GAT) dan GraphSAGE pada jaringan sosial dinamis?')" class="text-xs bg-white text-slate-700 hover:border-brand-500 hover:text-brand-600 px-3 py-1.5 rounded-lg border border-slate-200 transition">
+                                🤖 Panduan Memilih GCN vs GAT vs GraphSAGE
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <textarea id="ai-mentor-input" rows="3" placeholder="Tanyakan apa saja kepada Dosen & Peneliti Senior (misal: 'Bagaimana membuktikan homofili secara statistik pada graf pertemanan mahasiswa?')..." class="w-full p-4 border border-slate-300 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 bg-white leading-relaxed"></textarea>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-slate-400 flex items-center gap-1.5">
+                                <span>🌐 Dilengkapi Google Search Grounding untuk literatur mutakhir</span>
+                            </span>
+                            <button id="ai-ask-mentor-btn" onclick="askSnaMentor()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md hover:shadow-brand-600/20 transition flex items-center gap-2">
+                                <span id="mentor-btn-spinner" class="hidden animate-spin">⏳</span>
+                                <span id="mentor-btn-text">Kirim Pertanyaan ke Dosen AI</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mentor Response Box -->
+                    <div id="ai-mentor-response-box" class="hidden rounded-2xl border border-slate-200 bg-slate-50/60 p-6 space-y-4">
+                        <div class="flex items-center space-x-2 border-b border-slate-200 pb-3">
+                            <span class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center font-bold text-sm">👨‍🏫</span>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Jawaban & Catatan Riset Dosen Senior</h4>
+                                <span class="text-[11px] text-slate-500">Model: Gemini 3 Flash dengan Grounding Verifikasi Web</span>
+                            </div>
+                        </div>
+                        <div id="ai-mentor-text" class="text-sm text-slate-700 leading-relaxed space-y-2 whitespace-pre-line">
+                            <!-- Answer inserted dynamically -->
+                        </div>
+                        <!-- Citations Section -->
+                        <div id="ai-mentor-citations" class="hidden pt-3 border-t border-slate-200">
+                            <strong class="text-xs font-bold text-slate-700 block mb-1">Rujukan Literatur & Sumber Terverifikasi:</strong>
+                            <div id="ai-mentor-sources-list" class="flex flex-wrap gap-2 text-xs"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: AI Thesis Proposal Generator -->
+                <div id="ai-proposal-panel" class="hidden p-6 sm:p-8 space-y-6">
+                    <div class="grid sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Fokus Sub-Bidang Riset:</label>
+                            <select id="proposal-subfield" class="w-full p-2.5 text-xs border border-slate-300 rounded-xl bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                                <option value="Deteksi Sindikat Kriminal Siber & Fraud Rings">Keamanan Siber & Fraud Rings (HIN/RGCN)</option>
+                                <option value="Mitigasi Disinformasi, Hoaks, & Bot Terkoordinasi">Disinformasi, Botnet & Kampanye Terkoordinasi</option>
+                                <option value="Sistem Rekomendasi Graf Interaktif & Bipartit">Sistem Rekomendasi Graf Bipartit (LightGCN)</option>
+                                <option value="GraphRAG & Knowledge Graph untuk Pengambilan Keputusan">GraphRAG + LLM Penalaran Dokumen Terstruktur</option>
+                                <option value="Analisis Polarisasi Komputasi & Echo Chambers">Sosiometri Komputasi & Polarisasi Ruang Gema</option>
+                                <option value="Prediksi Kolaborasi Riset & Dinamika Bibliometrik">Bibliometrik & Link Prediction Kolaborasi Ilmiah</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Tingkat Kompleksitas / Semester:</label>
+                            <select id="proposal-level" class="w-full p-2.5 text-xs border border-slate-300 rounded-xl bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                                <option value="Skripsi Sarjana S1 Informatika (Standar & Aplikatif)">Skripsi S1 Informatika (Aplikatif & Komprehensif)</option>
+                                <option value="Skripsi Sarjana S1 Informatika Jalur Riset / Fast-Track (Lanjut)">Skripsi S1 Riset Mendalam (Algoritma / Eksperimen Baru)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Preferensi Tool / Library Utama:</label>
+                            <select id="proposal-tools" class="w-full p-2.5 text-xs border border-slate-300 rounded-xl bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                                <option value="PyTorch Geometric (PyG) + NetworkX">PyTorch Geometric (PyG) + NetworkX</option>
+                                <option value="Neo4j + Cypher + LangChain GraphRAG">Neo4j + GraphRAG + LangChain</option>
+                                <option value="DGL (Deep Graph Library) + Scikit-Learn">DGL (Deep Graph Library) + Scikit-Learn</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Catatan Tambahan / Objek Spesifik (Opsional):</label>
+                        <input type="text" id="proposal-custom-note" placeholder="Misal: 'Ingin menggunakan dataset transaksi blockchain Ethereum' atau 'Ingin fokus pada media sosial lokal Indonesia'..." class="w-full p-3 text-xs border border-slate-300 rounded-xl bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button id="ai-generate-proposal-btn" onclick="generateThesisProposal()" class="bg-gradient-to-r from-brand-600 to-accent-600 hover:opacity-95 text-white text-xs sm:text-sm font-semibold px-6 py-2.5 rounded-xl shadow-md transition flex items-center gap-2">
+                            <span id="proposal-btn-spinner" class="hidden animate-spin">⏳</span>
+                            <span id="proposal-btn-text">✨ Susun Blueprint Proposal Skripsi</span>
+                        </button>
+                    </div>
+
+                    <!-- Proposal Blueprint Output -->
+                    <div id="ai-proposal-output-box" class="hidden space-y-4">
+                        <div class="bg-brand-50 border border-brand-200 p-5 rounded-2xl">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-xs bg-brand-600 text-white font-bold px-2 py-0.5 rounded">Rancangan Disetujui AI</span>
+                                <span class="text-xs text-brand-800 font-semibold" id="out-proposal-level">S1 Informatika</span>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-snug" id="out-proposal-title">Judul Skripsi</h3>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                                <strong class="text-slate-900 block text-xs">1. Rumusan Masalah & Motivasi:</strong>
+                                <p class="text-slate-600 leading-relaxed" id="out-proposal-problem"></p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                                <strong class="text-slate-900 block text-xs">2. Dataset yang Direkomendasikan:</strong>
+                                <p class="text-slate-600 leading-relaxed" id="out-proposal-dataset"></p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                                <strong class="text-slate-900 block text-xs">3. Desain Metodologi & Arsitektur:</strong>
+                                <p class="text-slate-600 leading-relaxed font-mono" id="out-proposal-method"></p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                                <strong class="text-slate-900 block text-xs">4. Novelty / Kontribusi Ilmiah & Metrik Evaluasi:</strong>
+                                <p class="text-slate-600 leading-relaxed" id="out-proposal-contrib"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: KATALOG RISET & IDE TOPIK SKRIPSI -->
+        <section id="riset-skripsi" class="space-y-8 scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-brand-100 text-brand-700 font-bold px-3 py-1 rounded-lg text-sm">Modul 7</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Contoh Permasalahan Penelitian & Ide Topik Skripsi</h2>
+                </div>
+                <p class="text-slate-600 mt-2">
+                    Eksplorasi 10 studi kasus penelitian komputasional dan 4 rancangan skripsi lengkap dengan latar belakang, kebutuhan dataset, metodologi, dan kontribusi ilmiahnya.
+                </p>
+            </div>
+
+            <!-- Tab Switcher: 10 Research Problems vs 4 Thesis Blueprints -->
+            <div class="flex space-x-3 border-b border-slate-200 pb-3">
+                <button id="btn-show-research" onclick="switchRisetTab('research')" class="px-4 py-2 font-bold text-sm rounded-xl bg-brand-600 text-white">10 Permasalahan Riset</button>
+                <button id="btn-show-thesis" onclick="switchRisetTab('thesis')" class="px-4 py-2 font-bold text-sm rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200">4 Rancangan Skripsi</button>
+            </div>
+
+            <!-- Content Area 1: 10 Research Problems Grid -->
+            <div id="research-problems-area" class="grid md:grid-cols-2 gap-6">
+                <!-- Dynamically loaded by JS -->
+            </div>
+
+            <!-- Content Area 2: 4 Detailed Thesis Topics (Hidden by default) -->
+            <div id="thesis-topics-area" class="hidden space-y-6">
+                <!-- Dynamically loaded by JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 8: ROADMAP BELAJAR & PETA KONSEP HIERARKIS -->
+        <section id="roadmap" class="space-y-8 scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="bg-brand-100 text-brand-700 font-bold px-3 py-1 rounded-lg text-sm">Modul 8</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Roadmap Pembelajaran & Peta Konsep Hierarkis</h2>
+                </div>
+                <p class="text-slate-600 mt-2">
+                    Panduan langkah demi langkah dari tingkat pemula hingga riset tingkat lanjut, dilengkapi dengan Peta Konsep Hierarkis dari Teori Graf hingga Graph Machine Learning.
+                </p>
+            </div>
+
+            <!-- 6-Stage Interactive Roadmap Timeline -->
+            <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                <h3 class="text-xl font-bold text-slate-900">Roadmap 6 Tahap Pembelajaran Mahasiswa</h3>
+                <div class="space-y-6 relative border-l-2 border-brand-200 ml-4 pl-6" id="roadmap-timeline">
+                    <!-- Populated dynamically by JS -->
+                </div>
+            </div>
+
+            <!-- Hierarchical Concept Map -->
+            <div class="bg-slate-900 text-white p-6 sm:p-8 rounded-2xl shadow-xl space-y-6">
+                <div>
+                    <span class="text-brand-400 text-xs font-bold uppercase tracking-wider">Struktur Keilmuan Hierarkis</span>
+                    <h3 class="text-2xl font-bold text-white">Peta Konsep Social Network Informatika</h3>
+                </div>
+
+                <div class="space-y-4 font-mono text-xs text-slate-300 overflow-x-auto custom-scrollbar p-2">
+                    <div class="p-3 bg-slate-800 rounded-xl border-l-4 border-emerald-500">
+                        <strong class="text-emerald-400">Tingkat 1: Teori Graf (Graph - Fondasi Matematis Murni)</strong>
+                        <p class="mt-1 text-slate-400">G = (V, E) | Vertices, Edges | Directed/Undirected | Adjacency Matrix & List</p>
+                    </div>
+
+                    <div class="ml-4 p-3 bg-slate-800/80 rounded-xl border-l-4 border-sky-500">
+                        <strong class="text-sky-400">↳ Tingkat 2: Jaringan Kompleks (Network - Manifestasi Dunia Nyata)</strong>
+                        <p class="mt-1 text-slate-400">Scale-Free Networks | Small-World Effect | Topologi Komputer, Penerbangan, Bio-protein</p>
+                    </div>
+
+                    <div class="ml-8 p-3 bg-slate-800/60 rounded-xl border-l-4 border-indigo-500">
+                        <strong class="text-indigo-400">↳ Tingkat 3: Jaringan Sosial (Social Network - Sistem Relasional Aktor)</strong>
+                        <p class="mt-1 text-slate-400">Simpul Aktor | Sisi Interaksi | Homofili, Triadic Closure, Echo Chambers</p>
+                    </div>
+
+                    <div class="ml-12 p-3 bg-slate-800/40 rounded-xl border-l-4 border-amber-500">
+                        <strong class="text-amber-400">↳ Tingkat 4: Analisis Jaringan Sosial (SNA - Metodologi Komputasi)</strong>
+                        <p class="mt-1 text-slate-400">Degree, Betweenness, Closeness, Eigenvector, PageRank | Deteksi Komunitas (Louvain/Leiden)</p>
+                    </div>
+
+                    <div class="ml-16 p-3 bg-slate-800/20 rounded-xl border-l-4 border-purple-500">
+                        <strong class="text-purple-400">↳ Tingkat 5: Machine Learning pada Graf (ML Inferensi & Prediksi)</strong>
+                        <p class="mt-1 text-slate-400">Node Classification, Link Prediction, Recommendation | Node Embeddings (DeepWalk, Node2Vec)</p>
+                    </div>
+
+                    <div class="ml-20 p-3 bg-brand-900/40 rounded-xl border-l-4 border-brand-500">
+                        <strong class="text-brand-300">↳ Tingkat 6: Graph Machine Learning & GNN (Paradigma Modern)</strong>
+                        <p class="mt-1 text-slate-300">Message Passing (GCN, GAT, GraphSAGE) | Temporal Graphs (TGN) | GraphRAG + LLM Integration</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 9: SUMMARY & CORE TAKEAWAYS -->
+        <section class="bg-brand-900 text-white p-8 sm:p-10 rounded-3xl shadow-xl space-y-6">
+            <h2 class="text-2xl font-bold text-white flex items-center space-x-2">
+                <span>📌</span>
+                <span>Ringkasan Inti yang Harus Selalu Diingat</span>
+            </h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-xs text-brand-100">
+                <div class="bg-brand-800/60 p-4 rounded-xl border border-brand-700/50 space-y-2">
+                    <h3 class="font-bold text-white text-sm">1. Data Relasional Non-Euclidean</h3>
+                    <p class="leading-relaxed">Data jaringan meruntuhkan asumsi data independen (i.i.d.). Nilai informasi utama berada pada konfigurasi relasi antar-entitas, bukan atribut statis saja.</p>
+                </div>
+                <div class="bg-brand-800/60 p-4 rounded-xl border border-brand-700/50 space-y-2">
+                    <h3 class="font-bold text-white text-sm">2. Efisiensi Graf Renggang</h3>
+                    <p class="leading-relaxed">Graf sosial dunia nyata sangat renggang (*sparse*). Daftar ketetanggaan (*Adjacency List*) jauh lebih hemat memori dibanding matriks dua dimensi.</p>
+                </div>
+                <div class="bg-brand-800/60 p-4 rounded-xl border border-brand-700/50 space-y-2">
+                    <h3 class="font-bold text-white text-sm">3. Kontekstualisasi Sentralitas</h3>
+                    <p class="leading-relaxed">Degree = Popularitas Lokal, Betweenness = Broker/Jembatan, Closeness = Kecepatan Sebar, PageRank = Otoritas Struktural.</p>
+                </div>
+                <div class="bg-brand-800/60 p-4 rounded-xl border border-brand-700/50 space-y-2">
+                    <h3 class="font-bold text-white text-sm">4. Message Passing GNN</h3>
+                    <p class="leading-relaxed">GNN memperbarui representasi laten simpul dengan mengagregasi fitur lingkungan ketetanggaan secara otomatis dan diferensiabel.</p>
+                </div>
+                <div class="bg-brand-800/60 p-4 rounded-xl border border-brand-700/50 space-y-2">
+                    <h3 class="font-bold text-white text-sm">5. Era Baru GraphRAG</h3>
+                    <p class="leading-relaxed">Penggabungan Graf Pengetahuan dengan LLM (GraphRAG) mengatasi masalah halusinasi AI dengan memberikan penalaran fakta relasional yang terstruktur.</p>
+                </div>
+                <div class="bg-brand-800/60 p-4 rounded-xl border border-brand-700/50 space-y-2">
+                    <h3 class="font-bold text-white text-sm">6. Potensi Riset Skripsi</h3>
+                    <p class="leading-relaxed">Peluang skripsi sangat terbuka luas pada isu disinformasi, fraud rings, sistem rekomendasi dinamis, dan analisis polarisasi opini.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 mt-20 py-8 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>© 2026 Panduan Akademik Interactive Social Network Informatika. Dikembangkan untuk Mahasiswa & Peneliti Computer Science.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // DATASETS & APP STATE
+
+        // 1. Glossary Dataset
+        const glossaryData = [
+            { term: 'Simpul (Node/Vertex)', tag: 'Elemen Utama', desc: 'Unit individual atau aktor mandiri dalam jaringan (pengguna, komputer, makalah, organisasi).' },
+            { term: 'Sisi (Edge/Link)', tag: 'Elemen Utama', desc: 'Saluran keterhubungan, relasi, atau interaksi antara sepasang simpul.' },
+            { term: 'Derajat (Degree)', tag: 'Metrik Lokal', desc: 'Jumlah relasi langsung yang dimiliki oleh suatu simpul.' },
+            { term: 'In/Out-Degree', tag: 'Metrik Arah', desc: 'Arah penerimaan (In) vs penyebaran (Out) interaksi pada jaringan berarah.' },
+            { term: 'Directed Network', tag: 'Sifat Graf', desc: 'Relasi asimetris satu arah (contoh: relasi following di X/Instagram).' },
+            { term: 'Undirected Network', tag: 'Sifat Graf', desc: 'Relasi simetris dua arah (contoh: pertemanan timbal balik di Facebook).' },
+            { term: 'Weighted Network', tag: 'Sifat Graf', desc: 'Relasi yang memiliki besaran intensitas, bobot, atau frekuensi kontak.' },
+            { term: 'Path (Jalur)', tag: 'Rute', desc: 'Deret penelusuran berurutan yang melewati simpul dan sisi jaringan.' },
+            { term: 'Shortest Path (Geodesic)', tag: 'Metrik Rute', desc: 'Rute perjalanan paling efisien dengan jumlah sisi atau bobot paling minimal.' },
+            { term: 'Connected Component', tag: 'Struktur', desc: 'Subgraf maksimal di mana setiap pasangan simpul saling terhubung oleh jalur.' },
+            { term: 'Density (Kepadatan)', tag: 'Metrik Makro', desc: 'Rasio antara jumlah sisi nyata dibanding jumlah sisi maksimal yang secara teoritis dapat dibentuk.' },
+            { term: 'Centrality (Sentralitas)', tag: 'Evaluasi Peran', desc: 'Kuantifikasi kepentingan struktural posisi suatu simpul dalam seluruh jaringan.' },
+            { term: 'Community (Komunitas)', tag: 'Struktur Meso', desc: 'Kelompok simpul dengan interkoneksi internal sangat rapat, tetapi koneksi eksternal renggang.' },
+            { term: 'Clustering Coefficient', tag: 'Kohesi Lokal', desc: 'Probabilitas bahwa dua tetangga dari suatu simpul juga saling terhubung (penutupan triadik).' },
+            { term: 'Diameter Graf', tag: 'Metrik Makro', desc: 'Jarak geodesik terbesar di antara seluruh pasangan simpul pada komponen terhubung utama.' },
+            { term: 'Average Path Length', tag: 'Metrik Makro', desc: 'Rata-rata dari seluruh jarak terpendek antar-pasangan simpul (fondasi Small-World).' },
+            { term: 'Homofili (Homophily)', tag: 'Sifat Sosial', desc: 'Kecenderungan simpul dengan atribut intrinsik serupa untuk membentuk sisi relasi.' }
+        ];
+
+        // 2. CS Domains Dataset (12 Cabang)
+        const csDomainsData = [
+            { id: 'gt', title: 'Teori Graf', icon: '📐', rel: 'Kerangka matematis formal untuk stabilitas, spektrum matriks, dan konektivitas.', concept: 'Graph Spectra, Min-Cut/Max-Flow', app: 'Membuktikan ketahanan jaringan terhadap gangguan atau serangan terarah.' },
+            { id: 'dsa', title: 'Struktur Data & Algoritma', icon: '⚡', rel: 'Penyimpanan memori efisien dan algoritma penelusuran cepat.', concept: 'BFS, DFS, Dijkstra, Tarjan', app: 'Mengukur degrees of separation dan melacak komponen terhubung.' },
+            { id: 'gdb', title: 'Basis Data Graf', icon: '𝄜', rel: 'Mengatasi degradasi performa RDBMS pada kueri multi-hop JOIN.', concept: 'Property Graph, Index-Free Adjacency', app: 'Neo4j, FalkorDB untuk kueri keterhubungan konstan tanpa global index.' },
+            { id: 'dm', title: 'Data Mining', icon: '⛏️', rel: 'Mengekstraksi keteraturan dan anomali struktural dari graf raksasa.', concept: 'Frequent Subgraph Mining, Anomaly Detection', app: 'Mendeteksi jaringan akun tiruan yang digerakkan oleh bot.' },
+            { id: 'ml', title: 'Machine Learning', icon: '🤖', rel: 'Mengonversi properti graf menjadi vektor untuk klasifikasi dan prediksi.', concept: 'Node Embedding, Node2Vec, DeepWalk', app: 'Memprediksi kategori pengguna dan rekomendasi pertemanan.' },
+            { id: 'ai', title: 'AI & GraphRAG', icon: '🧠', rel: 'Integrasi Graf Pengetahuan dengan LLM untuk penalaran faktual terstruktur.', concept: 'Knowledge Graph, GraphRAG, Leiden Summary', app: 'Mencegah halusinasi fakta pada LLM dengan kontekstualisasi relasi.' },
+            { id: 'ir', title: 'Information Retrieval', icon: '🔍', rel: 'Memeringkat dokumen berdasarkan prestise tautan hiperteks.', concept: 'PageRank, HITS Algorithm', app: 'Mesin pencari web yang menilai autoritas dokumen berdasarkan sitasi.' },
+            { id: 'ds', title: 'Sistem Terdistribusi', icon: '🌐', rel: 'Memproses miliaran simpul yang melampaui kapasitas satu memori PC.', concept: 'Bulk Synchronous Parallel (BSP)', app: 'Apache Spark GraphX, Pregel dengan paradigma Think Like a Vertex.' },
+            { id: 'cn', title: 'Jaringan Komputer', icon: '💻', rel: 'Meminjam teori topologi sosial untuk optimasi lalu lintas paket data.', concept: 'Congestion Control, Routing Protocols', app: 'Mencegah cascading failure saat router utama mengalami kerusakan.' },
+            { id: 'sec', title: 'Keamanan Siber', icon: '🛡️', rel: 'Memodelkan interaksi ancaman digital dan pergerakan malware.', concept: 'Attack Graph, Sybil Detection', app: 'Mendeteksi fraud rings, botnet C2, dan pencucian uang blockchain.' },
+            { id: 'rec', title: 'Sistem Rekomendasi', icon: '🛒', rel: 'Memodelkan interaksi konsumen-produk dalam graf bipartit.', concept: 'Bipartite Collaborative Filtering, Link Prediction', app: 'Rekomendasi belanja personal berbasis perambatan preferensi.' },
+            { id: 'nlp', title: 'Pemrosesan Bahasa Alami', icon: '💬', rel: 'Memodelkan relasi kata dan penutur untuk analisis opini kontekstual.', concept: 'TextRank, Syntactic Dependency Graph', app: 'Ekstraksi kata kunci otomatis dan analisis sentimen berbasis interaksi.' }
+        ];
+
+        // INITIALIZATION LOGIC
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGlossary();
+            renderCSDomains();
+            initGraphSimulator();
+            initCharts();
+            renderResearchProblems();
+            renderThesisTopics();
+            renderRoadmap();
+
+            // Setup Mobile Menu Toggle
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+
+            // Glossary Search Event
+            document.getElementById('glossary-search').addEventListener('input', (e) => {
+                renderGlossary(e.target.value.toLowerCase());
+            });
+
+            // Setup AI Graph Analysis button listeners
+            document.getElementById('ai-analyze-graph-btn').addEventListener('click', analyzeCurrentGraphWithAI);
+            document.getElementById('close-ai-analysis-btn').addEventListener('click', () => {
+                document.getElementById('ai-graph-analysis-container').classList.add('hidden');
+            });
+        });
+
+        // GEMINI API UTILITIES & INTEGRATION
+        const geminiApiKey = ""; // Canvas runtime automatically supplies the API key when empty
+
+        async function callGeminiAPI(payload, retries = 3, delay = 1000) {
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${geminiApiKey}`;
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    if ((response.status === 429 || response.status >= 500) && retries > 0) {
+                        await new Promise(r => setTimeout(r, delay));
+                        return callGeminiAPI(payload, retries - 1, delay * 2);
+                    }
+                    throw new Error(`HTTP error ${response.status}`);
+                }
+                return await response.json();
+            } catch (err) {
+                if (retries > 0) {
+                    await new Promise(r => setTimeout(r, delay));
+                    return callGeminiAPI(payload, retries - 1, delay * 2);
+                }
+                throw err;
+            }
+        }
+
+        // 1. AI TOPOLOGY INSPECTOR FOR CANVAS
+        async function analyzeCurrentGraphWithAI() {
+            const container = document.getElementById('ai-graph-analysis-container');
+            const textElem = document.getElementById('ai-graph-analysis-text');
+            const btn = document.getElementById('ai-analyze-graph-btn');
+
+            container.classList.remove('hidden');
+            textElem.innerHTML = '<span class="text-brand-600 font-semibold flex items-center gap-1.5"><span class="animate-spin">⏳</span> Dosen AI sedang menelaah topologi graf Anda...</span>';
+            btn.disabled = true;
+
+            const nodeLabels = graphNodes.map(n => n.id);
+            const edgePairs = graphEdges.map(e => `(${e.from}, ${e.to})`);
+            
+            // Calculate degrees
+            const degrees = {};
+            nodeLabels.forEach(l => degrees[l] = 0);
+            graphEdges.forEach(e => {
+                if (degrees[e.from] !== undefined) degrees[e.from]++;
+                if (degrees[e.to] !== undefined) degrees[e.to]++;
+            });
+            const degSummary = Object.entries(degrees).map(([k, v]) => `${k}:${v}`).join(', ');
+
+            const systemPrompt = "Anda adalah dosen dan peneliti senior Informatika ahli Teori Graf, Social Network Analysis, dan Graph Machine Learning. Analisis ringkas (maksimal 3 paragraf pendek) struktur graf yang dibuat mahasiswa: sebutkan karakteristik simpul (apakah ada hub, broker/jembatan, atau simpul terisolasi), kepadatan (density), dan rekomendasikan metrik sentralitas atau algoritma yang relevan untuk graf ini. Berikan bahasa ramah, mendidik, dan aplikatif.";
+            const userPrompt = `Mahasiswa telah menggambar graf dengan:
+Simpul: [${nodeLabels.join(', ')}] (Total: ${nodeLabels.length})
+Sisi: [${edgePairs.join(', ')}] (Total: ${edgePairs.length})
+Distribusi Derajat: ${degSummary}
+
+Berikan evaluasi topologis akademis dan saran eksplorasi analisis untuk mahasiswa ini.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userPrompt }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            try {
+                const result = await callGeminiAPI(payload);
+                const candidate = result.candidates?.[0];
+                const analysis = candidate?.content?.parts?.[0]?.text;
+                if (analysis) {
+                    textElem.innerHTML = analysis.replace(/\n\n/g, '<br><br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                } else {
+                    textElem.textContent = "Gagal memuat evaluasi. Silakan periksa koneksi dan coba lagi.";
+                }
+            } catch (err) {
+                textElem.textContent = "Terjadi gangguan saat memanggil AI. Silakan coba kembali sesaat lagi.";
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // 2. AI MENTOR WITH GOOGLE SEARCH GROUNDING
+        function switchAILabTab(tab) {
+            const mentorPanel = document.getElementById('ai-mentor-panel');
+            const proposalPanel = document.getElementById('ai-proposal-panel');
+            const mentorBtn = document.getElementById('ai-tab-mentor-btn');
+            const proposalBtn = document.getElementById('ai-tab-proposal-btn');
+
+            if (tab === 'mentor') {
+                mentorPanel.classList.remove('hidden');
+                proposalPanel.classList.add('hidden');
+                mentorBtn.className = "flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-brand-700 shadow-sm border border-slate-200 transition flex items-center justify-center gap-2";
+                proposalBtn.className = "flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white hover:text-slate-900 transition flex items-center justify-center gap-2";
+            } else {
+                mentorPanel.classList.add('hidden');
+                proposalPanel.classList.remove('hidden');
+                mentorBtn.className = "flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white hover:text-slate-900 transition flex items-center justify-center gap-2";
+                proposalBtn.className = "flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold bg-white text-brand-700 shadow-sm border border-slate-200 transition flex items-center justify-center gap-2";
+            }
+        }
+
+        function setMentorPrompt(text) {
+            document.getElementById('ai-mentor-input').value = text;
+        }
+
+        async function askSnaMentor() {
+            const input = document.getElementById('ai-mentor-input').value.trim();
+            if (!input) return;
+
+            const responseBox = document.getElementById('ai-mentor-response-box');
+            const textElem = document.getElementById('ai-mentor-text');
+            const citationsDiv = document.getElementById('ai-mentor-citations');
+            const sourcesList = document.getElementById('ai-mentor-sources-list');
+            const spinner = document.getElementById('mentor-btn-spinner');
+            const btnText = document.getElementById('mentor-btn-text');
+            const askBtn = document.getElementById('ai-ask-mentor-btn');
+
+            responseBox.classList.remove('hidden');
+            citationsDiv.classList.add('hidden');
+            sourcesList.innerHTML = '';
+            textElem.innerHTML = '<span class="text-brand-600 font-semibold flex items-center gap-2"><span class="animate-spin">⏳</span> Menghubungkan ke literatur riset & memproses jawaban...</span>';
+            
+            askBtn.disabled = true;
+            spinner.classList.remove('hidden');
+            btnText.textContent = "Sedang Menjawab...";
+
+            const systemPrompt = "Anda adalah seorang Dosen & Peneliti Senior di bidang Informatika yang ahli dalam Social Network Analysis (SNA), Network Science, Machine Learning, dan Graph Neural Networks (GNN). Berikan penjelasan mendalam namun mudah dicerna oleh mahasiswa S1. Jika terdapat analogi, berikan contoh intuitif. Gunakan rujukan ilmiah mutakhir dan jelaskan implikasi komputasionalnya.";
+
+            const payload = {
+                contents: [{ parts: [{ text: input }] }],
+                tools: [{ "google_search": {} }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            try {
+                const result = await callGeminiAPI(payload);
+                const candidate = result.candidates?.[0];
+                const text = candidate?.content?.parts?.[0]?.text;
+
+                if (text) {
+                    textElem.innerHTML = text.replace(/\n\n/g, '<br><br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+                    // Process Grounding Citations
+                    let sources = [];
+                    const groundingMetadata = candidate.groundingMetadata;
+                    if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                        sources = groundingMetadata.groundingAttributions
+                            .map(attr => ({
+                                uri: attr.web?.uri,
+                                title: attr.web?.title || attr.web?.uri
+                            }))
+                            .filter(src => src.uri);
+                    }
+
+                    if (sources.length > 0) {
+                        citationsDiv.classList.remove('hidden');
+                        sources.forEach(src => {
+                            const link = document.createElement('a');
+                            link.href = src.uri;
+                            link.target = '_blank';
+                            link.rel = 'noopener noreferrer';
+                            link.className = "bg-white hover:bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md border border-slate-200 truncate max-w-xs transition text-[11px] block";
+                            link.textContent = `🔗 ${src.title}`;
+                            sourcesList.appendChild(link);
+                        });
+                    }
+                } else {
+                    textElem.textContent = "Maaf, respon tidak dapat dihasilkan. Silakan formulir ulang pertanyaan Anda.";
+                }
+            } catch (err) {
+                textElem.textContent = "Terjadi kesalahan saat memanggil asisten riset. Pastikan jaringan internet aktif dan coba lagi.";
+            } finally {
+                askBtn.disabled = false;
+                spinner.classList.add('hidden');
+                btnText.textContent = "Kirim Pertanyaan ke Dosen AI";
+            }
+        }
+
+        // 3. AI STRUCTURED THESIS PROPOSAL GENERATOR
+        async function generateThesisProposal() {
+            const subfield = document.getElementById('proposal-subfield').value;
+            const level = document.getElementById('proposal-level').value;
+            const tools = document.getElementById('proposal-tools').value;
+            const customNote = document.getElementById('proposal-custom-note').value.trim();
+
+            const outputBox = document.getElementById('ai-proposal-output-box');
+            const spinner = document.getElementById('proposal-btn-spinner');
+            const btnText = document.getElementById('proposal-btn-text');
+            const btn = document.getElementById('ai-generate-proposal-btn');
+
+            outputBox.classList.add('hidden');
+            btn.disabled = true;
+            spinner.classList.remove('hidden');
+            btnText.textContent = "Menyusun Proposal...";
+
+            const promptText = `Rancang blueprint proposal skripsi berkualitas tinggi untuk mahasiswa Informatika dengan spesifikasi:
+Fokus Sub-bidang: ${subfield}
+Jenjang/Tingkat: ${level}
+Pustaka/Framework Utama: ${tools}
+${customNote ? `Catatan Khusus Mahasiswa: ${customNote}` : ''}
+
+Susun secara akademik dan inovatif dengan struktur JSON persis sesuai schema.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: promptText }] }],
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            "judul": { "type": "STRING" },
+                            "rumusanMasalah": { "type": "STRING" },
+                            "dataset": { "type": "STRING" },
+                            "metodologi": { "type": "STRING" },
+                            "kontribusiNovelty": { "type": "STRING" }
+                        },
+                        "propertyOrdering": ["judul", "rumusanMasalah", "dataset", "metodologi", "kontribusiNovelty"]
+                    }
+                },
+                systemInstruction: {
+                    parts: [{ text: "Anda adalah Ketua Komisi Tugas Akhir/Skripsi di Departemen Ilmu Komputer & Informatika. Tugas Anda menyusun rancangan topik skripsi yang orisinal, terukur secara komputasi, dan relevan dengan tren penelitian mutakhir (Graph Neural Networks, GraphRAG, Deteksi Anomali Graf)." }]
+                }
+            };
+
+            try {
+                const result = await callGeminiAPI(payload);
+                const jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (jsonText) {
+                    const data = JSON.parse(jsonText);
+                    document.getElementById('out-proposal-level').textContent = level;
+                    document.getElementById('out-proposal-title').textContent = data.judul;
+                    document.getElementById('out-proposal-problem').textContent = data.rumusanMasalah;
+                    document.getElementById('out-proposal-dataset').textContent = data.dataset;
+                    document.getElementById('out-proposal-method').textContent = data.metodologi;
+                    document.getElementById('out-proposal-contrib').textContent = data.kontribusiNovelty;
+
+                    outputBox.classList.remove('hidden');
+                    outputBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            } catch (err) {
+                // Inline error notification
+                document.getElementById('out-proposal-title').textContent = "Gagal menyusun proposal otomatis. Silakan coba kembali.";
+                outputBox.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                spinner.classList.add('hidden');
+                btnText.textContent = "✨ Susun Blueprint Proposal Skripsi";
+            }
+        }
+
+        // RENDER GLOSSARY
+        function renderGlossary(filter = '') {
+            const container = document.getElementById('glossary-grid');
+            container.innerHTML = '';
+            
+            const filtered = glossaryData.filter(item => 
+                item.term.toLowerCase().includes(filter) || item.desc.toLowerCase().includes(filter)
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-500 col-span-full">Tidak ada istilah yang cocok dengan pencarian.</p>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-50 p-4 rounded-xl border border-slate-200 hover:border-brand-300 transition space-y-2";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-slate-900 text-sm">${item.term}</h4>
+                        <span class="text-[10px] bg-brand-100 text-brand-700 px-2 py-0.5 rounded-md font-semibold">${item.tag}</span>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed">${item.desc}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // RENDER CS DOMAINS TABS
+        function renderCSDomains() {
+            const tabsContainer = document.getElementById('domain-tabs');
+            tabsContainer.innerHTML = '';
+
+            csDomainsData.forEach((dom, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `p-3 rounded-xl text-left border transition flex items-center space-x-2 ${idx === 0 ? 'bg-brand-600 text-white border-brand-600 shadow-md' : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'}`;
+                btn.id = `domain-btn-${dom.id}`;
+                btn.onclick = () => selectCSDomain(dom.id);
+                btn.innerHTML = `
+                    <span class="text-xl">${dom.icon}</span>
+                    <span class="text-xs font-bold truncate">${dom.title}</span>
+                `;
+                tabsContainer.appendChild(btn);
+            });
+
+            // Select first domain by default
+            selectCSDomain(csDomainsData[0].id);
+        }
+
+        function selectCSDomain(id) {
+            csDomainsData.forEach(dom => {
+                const btn = document.getElementById(`domain-btn-${dom.id}`);
+                if (dom.id === id) {
+                    btn.className = "p-3 rounded-xl text-left border transition flex items-center space-x-2 bg-brand-600 text-white border-brand-600 shadow-md";
+                } else {
+                    btn.className = "p-3 rounded-xl text-left border transition flex items-center space-x-2 bg-white text-slate-700 border-slate-200 hover:bg-slate-50";
+                }
+            });
+
+            const dom = csDomainsData.find(d => d.id === id);
+            const detailBox = document.getElementById('domain-detail-box');
+            detailBox.innerHTML = `
+                <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+                    <span class="text-3xl">${dom.icon}</span>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">${dom.title}</h3>
+                        <span class="text-xs text-brand-600 font-semibold">Cabang Sinergi Informatika</span>
+                    </div>
+                </div>
+                <div class="grid sm:grid-cols-3 gap-4 text-xs">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                        <strong class="text-slate-800 text-xs">Mengapa Relevan?</strong>
+                        <p class="text-slate-600 leading-relaxed">${dom.rel}</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                        <strong class="text-slate-800 text-xs">Konsep Kunci Digunakan:</strong>
+                        <p class="text-slate-600 font-mono text-[11px] leading-relaxed">${dom.concept}</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+                        <strong class="text-slate-800 text-xs">Contoh Penerapan Real:</strong>
+                        <p class="text-slate-600 leading-relaxed">${dom.app}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // SIMULATOR GRAF CANVAS INTERAKTIF
+        let canvas, ctx;
+        let graphNodes = [
+            { id: 'A', x: 120, y: 100 },
+            { id: 'B', x: 280, y: 80 },
+            { id: 'C', x: 150, y: 220 },
+            { id: 'D', x: 380, y: 200 }
+        ];
+        let graphEdges = [
+            { from: 'A', to: 'B' },
+            { from: 'A', to: 'C' },
+            { from: 'B', to: 'D' }
+        ];
+        let selectedNodeForEdge = null;
+        let activeRepTab = 'adj-mat';
+
+        function initGraphSimulator() {
+            canvas = document.getElementById('graphCanvas');
+            ctx = canvas.getContext('2d');
+
+            canvas.addEventListener('click', handleCanvasClick);
+            document.getElementById('reset-graph-btn').addEventListener('click', resetGraph);
+
+            drawGraph();
+            updateRepresentationOutputs();
+        }
+
+        function handleCanvasClick(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Check if clicked on existing node
+            const clickedNode = graphNodes.find(n => {
+                const dist = Math.hypot(n.x - x, n.y - y);
+                return dist < 22;
+            });
+
+            if (clickedNode) {
+                if (!selectedNodeForEdge) {
+                    selectedNodeForEdge = clickedNode;
+                } else if (selectedNodeForEdge.id !== clickedNode.id) {
+                    // Check if edge exists
+                    const exists = graphEdges.some(e => 
+                        (e.from === selectedNodeForEdge.id && e.to === clickedNode.id) ||
+                        (e.from === clickedNode.id && e.to === selectedNodeForEdge.id)
+                    );
+                    if (!exists) {
+                        graphEdges.push({ from: selectedNodeForEdge.id, to: clickedNode.id });
+                    }
+                    selectedNodeForEdge = null;
+                } else {
+                    selectedNodeForEdge = null; // deselect
+                }
+            } else {
+                // Add new node if count < 8
+                if (graphNodes.length < 8) {
+                    const newLabel = String.fromCharCode(65 + graphNodes.length);
+                    graphNodes.push({ id: newLabel, x, y });
+                }
+                selectedNodeForEdge = null;
+            }
+
+            drawGraph();
+            updateRepresentationOutputs();
+        }
+
+        function resetGraph() {
+            graphNodes = [
+                { id: 'A', x: 120, y: 100 },
+                { id: 'B', x: 280, y: 80 },
+                { id: 'C', x: 150, y: 220 },
+                { id: 'D', x: 380, y: 200 }
+            ];
+            graphEdges = [
+                { from: 'A', to: 'B' },
+                { from: 'A', to: 'C' },
+                { from: 'B', to: 'D' }
+            ];
+            selectedNodeForEdge = null;
+            drawGraph();
+            updateRepresentationOutputs();
+        }
+
+        function drawGraph() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Edges
+            graphEdges.forEach(e => {
+                const n1 = graphNodes.find(n => n.id === e.from);
+                const n2 = graphNodes.find(n => n.id === e.to);
+                if (n1 && n2) {
+                    ctx.beginPath();
+                    ctx.moveTo(n1.x, n1.y);
+                    ctx.lineTo(n2.x, n2.y);
+                    ctx.strokeStyle = '#94a3b8';
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+                }
+            });
+
+            // Draw Nodes
+            graphNodes.forEach(n => {
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, 20, 0, 2 * Math.PI);
+                if (selectedNodeForEdge && selectedNodeForEdge.id === n.id) {
+                    ctx.fillStyle = '#0284c7'; // selected
+                } else {
+                    ctx.fillStyle = '#16a34a'; // normal emerald
+                }
+                ctx.fill();
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = '#ffffff';
+                ctx.stroke();
+
+                // Draw Text Label
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 14px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(n.id, n.x, n.y);
+            });
+
+            // Update Badges
+            document.getElementById('node-count-badge').textContent = graphNodes.length;
+            document.getElementById('edge-count-badge').textContent = graphEdges.length;
+        }
+
+        function switchRepTab(tab) {
+            activeRepTab = tab;
+            document.getElementById('tab-adj-mat').className = tab === 'adj-mat' ? "px-3 py-1 text-xs font-bold rounded-lg bg-brand-600 text-white" : "px-3 py-1 text-xs font-bold rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200";
+            document.getElementById('tab-adj-list').className = tab === 'adj-list' ? "px-3 py-1 text-xs font-bold rounded-lg bg-brand-600 text-white" : "px-3 py-1 text-xs font-bold rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200";
+            document.getElementById('tab-edge-list').className = tab === 'edge-list' ? "px-3 py-1 text-xs font-bold rounded-lg bg-brand-600 text-white" : "px-3 py-1 text-xs font-bold rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200";
+            updateRepresentationOutputs();
+        }
+
+        function updateRepresentationOutputs() {
+            const display = document.getElementById('rep-display-area');
+            const nodeIds = graphNodes.map(n => n.id);
+            const n = nodeIds.length;
+
+            if (activeRepTab === 'adj-mat') {
+                // Generate Adjacency Matrix
+                let matrix = Array(n).fill(0).map(() => Array(n).fill(0));
+                graphEdges.forEach(e => {
+                    const i = nodeIds.indexOf(e.from);
+                    const j = nodeIds.indexOf(e.to);
+                    if (i !== -1 && j !== -1) {
+                        matrix[i][j] = 1;
+                        matrix[j][i] = 1;
+                    }
+                });
+
+                let html = `// Adjacency Matrix (Size ${n}x${n})\n`;
+                html += `   ` + nodeIds.join('  ') + `\n`;
+                matrix.forEach((row, i) => {
+                    html += `${nodeIds[i]} [ ${row.join(', ')} ]\n`;
+                });
+                display.innerText = html;
+
+            } else if (activeRepTab === 'adj-list') {
+                // Generate Adjacency List
+                let list = {};
+                nodeIds.forEach(id => list[id] = []);
+                graphEdges.forEach(e => {
+                    if (list[e.from]) list[e.from].push(e.to);
+                    if (list[e.to]) list[e.to].push(e.from);
+                });
+
+                let html = `// Adjacency List (Linked List / Array Hash)\n`;
+                nodeIds.forEach(id => {
+                    html += `Simpul ${id} -> [ ${list[id].join(', ')} ]\n`;
+                });
+                display.innerText = html;
+
+            } else {
+                // Generate Edge List
+                let html = `// Edge List Tuple Array (|E| = ${graphEdges.length})\nE = [\n`;
+                graphEdges.forEach(e => {
+                    html += `  ("${e.from}", "${e.to}"),\n`;
+                });
+                html += `]`;
+                display.innerText = html;
+            }
+        }
+
+        // CHARTS IMPLEMENTATION (Chart.js)
+        function initCharts() {
+            // 1. Complexity Comparison Chart
+            const ctxComp = document.getElementById('complexityChart').getContext('2d');
+            new Chart(ctxComp, {
+                type: 'bar',
+                data: {
+                    labels: ['Memory Space', 'Edge Lookup', 'Degree Neighbor Scan'],
+                    datasets: [
+                        { label: 'Adjacency Matrix', data: [9, 1, 9], backgroundColor: '#f43f5e' },
+                        { label: 'Adjacency List', data: [3, 4, 2], backgroundColor: '#16a34a' },
+                        { label: 'Edge List', data: [2, 8, 8], backgroundColor: '#0284c7' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { boxWidth: 10, font: { size: 10 } } } },
+                    scales: { y: { display: false } }
+                }
+            });
+
+            // 2. Centrality Profile Radar Chart
+            const ctxRadar = document.getElementById('centralityRadarChart').getContext('2d');
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['Degree', 'Betweenness', 'Closeness', 'Eigenvector', 'PageRank'],
+                    datasets: [
+                        {
+                            label: 'Hub (Popular)',
+                            data: [95, 30, 60, 70, 65],
+                            borderColor: '#16a34a',
+                            backgroundColor: 'rgba(22, 163, 74, 0.2)'
+                        },
+                        {
+                            label: 'Broker (Perantara)',
+                            data: [40, 95, 75, 45, 50],
+                            borderColor: '#0284c7',
+                            backgroundColor: 'rgba(2, 132, 199, 0.2)'
+                        },
+                        {
+                            label: 'Inisiator Broadcast',
+                            data: [50, 60, 95, 55, 60],
+                            borderColor: '#6366f1',
+                            backgroundColor: 'rgba(99, 102, 241, 0.2)'
+                        },
+                        {
+                            label: 'Aktor Elit / Otoritas',
+                            data: [60, 40, 65, 95, 90],
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.2)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { boxWidth: 10, font: { size: 10 } } } },
+                    scales: { r: { ticks: { display: false } } }
+                }
+            });
+        }
+
+        // MESSAGE PASSING STEP SIMULATION
+        function setMPStep(step) {
+            const btn1 = document.getElementById('mp-step-1');
+            const btn2 = document.getElementById('mp-step-2');
+            const content = document.getElementById('mp-step-content');
+
+            if (step === 1) {
+                btn1.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-600 text-white";
+                btn2.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-white";
+                content.innerHTML = `
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2">
+                        <span class="text-xs text-brand-400 font-bold">Langkah 1: AGGREGATE</span>
+                        <h4 class="font-bold text-sm text-white">Pengumpulan Pesan Tetangga</h4>
+                        <p class="text-xs text-slate-300">Simpul target <em>v</em> mengumpulkan vektor fitur dari seluruh tetangga langsungnya <em>N(v)</em>.</p>
+                        <div class="font-mono text-[11px] bg-slate-900 p-2 rounded text-emerald-400">m_N(v) = AGG({ h_u^(k-1) : u ∈ N(v) })</div>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2">
+                        <span class="text-xs text-brand-400 font-bold">Fungsi Agregasi</span>
+                        <h4 class="font-bold text-sm text-white">Mean / Sum / Attention</h4>
+                        <p class="text-xs text-slate-300">GCN menggunakan normalisasi derajat simetris, GAT menggunakan pembobotan atensi adaptif.</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2">
+                        <span class="text-xs text-brand-400 font-bold">Visualisasi Intuisi</span>
+                        <div class="text-center text-2xl py-2">📥 🟢 ← 🔵 🔵</div>
+                        <p class="text-xs text-slate-400 text-center">Pesan mengalir dari tetangga ke target</p>
+                    </div>
+                `;
+            } else {
+                btn1.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-slate-400 hover:text-white";
+                btn2.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-600 text-white";
+                content.innerHTML = `
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2">
+                        <span class="text-xs text-sky-400 font-bold">Langkah 2: UPDATE</span>
+                        <h4 class="font-bold text-sm text-white">Pembaruan Vektor Laten</h4>
+                        <p class="text-xs text-slate-300">Menggabungkan pesan agregat tetangga dengan status representasi lama simpul target sendiri.</p>
+                        <div class="font-mono text-[11px] bg-slate-900 p-2 rounded text-sky-300">h_v^(k) = UPDATE( h_v^(k-1), m_N(v) )</div>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2">
+                        <span class="text-xs text-sky-400 font-bold">Transformasi Non-Linier</span>
+                        <h4 class="font-bold text-sm text-white">Matriks Bobot & ReLU</h4>
+                        <p class="text-xs text-slate-300">Vektor diubah melalui perkalian matriks bobot yang dipelajari (W) dan fungsi aktivasi non-linier.</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2">
+                        <span class="text-xs text-sky-400 font-bold">Visualisasi Hasil</span>
+                        <div class="text-center text-2xl py-2">✨ 🟢 (Embedding Baru)</div>
+                        <p class="text-xs text-slate-400 text-center">Simpul kini memuat konteks 1-hop / k-hop</p>
+                    </div>
+                `;
+            }
+        }
+
+        // RESEARCH PROBLEMS & THESIS TOPICS DATA
+        const researchProblemsData = [
+            { title: 'Deteksi Jaringan Bot Terkoordinasi', domain: 'Keamanan / Medsos', prob: 'Kampanye disinformasi terorganisasi menghindari klasifikasi akun individual secara terisolasi.', data: 'API medsos, timestamp cuitan, graf retweet & mention.', method: 'GAT Multimodal & Semi-Supervised Node Classification.', output: 'Probabilitas akun bot & segmentasi subgraf aktor pengendali.' },
+            { title: 'Prediksi Jalur & Kecepatan Difusi Hoaks', domain: 'NLP / Social Mining', prob: 'Menentukan lintasan perambatan dan simpul perantara utama kaskade hoaks.', data: 'Log URL berita, topologi pertemanan, vektor semantik klaim.', method: 'Independent Cascade + Temporal Graph Attention (TGAT).', output: 'Proyeksi pohon kaskade & daftar simpul prioritas intervensi.' },
+            { title: 'Sistem Rekomendasi E-Commerce Dinamis', domain: 'Recommender Systems', prob: 'Masalah data interaksi renggang (sparsity) & cold-start pada item baru.', data: 'Graf bipartit user-item, riwayat browsing, metadata produk.', method: 'LightGCN + Dynamic Preference Embedding.', output: 'Skor peringkat rekomendasi produk personal adaptif.' },
+            { title: 'Pemeringkatan Influencer Mahasiswa', domain: 'Social Analytics', prob: 'Model topologi klasik gagal membedakan otoritas formal vs pemegang opini informal.', data: 'Log pesan instan, partisipasi ormawa, kegiatan kampus.', method: 'Node embedding GAT + Sentralitas PageRank Terarah.', output: 'Peringkat aktor penyebar pengaruh optimal.' },
+            { title: 'Deteksi Fraud Rings Perbankan Digital', domain: 'FinTech / Fraud', prob: 'Komplotan kejahatan memecah transaksi ke rantai sirkulasi tertutup (smurfing).', data: 'Log transfer rekening, IP perangkat, NIK, riwayat kontak.', method: 'Heterogeneous Info Networks (HIN) + RGCN.', output: 'Deteksi klaster rekening terisolasi terindikasi sindikat.' },
+            { title: 'Prediksi Kolaborasi Riset Masa Depan', domain: 'Bibliometrik', prob: 'Mendorong pembentukan tim kolaborasi lintas disiplin sebelum interaksi fisik terjadi.', data: 'OpenAlex/DBLP, metadata abstrak, co-authorship graph.', method: 'Link Prediction + TransE Knowledge Graph Embedding.', output: 'Estimasi probabilitas kemitraan riset baru 3-5 tahun mendatang.' },
+            { title: 'Rekonstruksi Pergerakan Lateral Malware', domain: 'Cybersecurity', prob: 'Memetakan patient zero dan pergerakan lateral malware di jaringan korporat.', data: 'Log NetFlow/IPFIX, autentikasi user, topologi server.', method: 'Attack Graph Analysis + Critical Percolation Algorithm.', output: 'Visualisasi pohon kill chain & rekomendasi isolasi tautan.' },
+            { title: 'Pengukuran Polarisasi & Echo Chamber', domain: 'Sosiometri Komputasi', prob: 'Polarisasi opini sulit diukur secara objektif tanpa analisis isolasi ruang gema.', data: 'Graf komentar/retweet, korpus opini, label topik.', method: 'Newman-Girvan Modularity + Transformer Sentiment Divergence.', output: 'Indeks polarisasi kuantitatif & identifikasi komunitas terisolasi.' },
+            { title: 'Prediksi Layanan Sosial Lansia', domain: 'Health & Community', prob: 'Keterbatasan pemantauan kondisi kesehatan mental & keterisolasian warga lansia.', data: 'Log interaksi sosial harian, partisipasi kegiatan, rekam medis.', method: 'Graph Neural Network for Elderly Service (GNN-ESP).', output: 'Model prediktif kebutuhan intervensi perawatan proaktif.' },
+            { title: 'GraphRAG untuk Penalaran Terstruktur', domain: 'AI & LLM', prob: 'LLM konvensional mengalami halusinasi faktual saat penalaran lintas dokumen.', data: 'Korpus teks laporan investigasi / dokumen transaksi.', method: 'Hierarchical Leiden Community Extraction + Hybrid Traversal.', output: 'Jawaban komputasional akurat dengan rujukan bukti graf.' }
+        ];
+
+        const thesisTopicsData = [
+            { title: 'Deteksi Polaritas Opini Menggunakan Integrasi Graph Attention Networks dan Representasi Kontekstual Bahasa', bg: 'Analisis sentimen teks murni sering gagal menangkap satire/sarkasme tanpa konteks keterikatan sosial penuturnya.', dataset: 'Korpus percakapan medsos publik, metadata relasi pertemanan & reply graph.', method: 'IndoBERT mengekstraksi vektor semantik awal, lalu diinjeksikan sebagai fitur simpul ke dalam arsitektur Graph Attention Networks (GAT).', contrib: 'Membuktikan peningkatan F1-Macro signifikan dengan penggabungan topologi jaringan dibanding NLP berbasis teks murni.' },
+            { title: 'Strategi Intervensi Kontra-Disinformasi Adaptif Berbasis Deep Reinforcement Learning pada Graf Dinamis', bg: 'Pemilihan aktor target klarifikasi hoaks secara statis berbasis sentralitas klasik terlambat merespons dinamika perambatan kaskade.', dataset: 'Topologi sintetis Barabási–Albert dan dataset perambatan disinformasi nyata (PHEME).', method: 'Agen Deep Q-Network (DQN) berinteraksi dengan simulasi graf dinamis untuk memilih subset simpul klarifikasi optimal.', contrib: 'Menghasilkan strategi intervensi adaptif waktu nyata yang mengungguli metode heuristik derajat tertinggi.' },
+            { title: 'Algoritma Paralel Efisien untuk Pemeliharaan Dekomposisi K-Core pada Jaringan Sosial Dinamis Skala Besar', bg: 'Pada jaringan produksi, sisi bertambah/terhapus secara terus menerus sehingga recalculation k-core dari awal sangat boros komputasi.', dataset: 'Dataset repositori graf raksasa SNAP (Twitch, Reddit, X graph).', method: 'Algoritma inkremental paralel berbasis shared-memory OpenMP untuk membatasi pembaruan coreness hanya pada simpul terdampak.', contrib: 'Menghasilkan akselerasi komputasi (speedup) tinggi tanpa mengorbankan akurasi matematis nilai dekomposisi.' },
+            { title: 'Simulasi Berbasis Agen (Agent-Based Modeling) Dampak Algoritma Rekomendasi terhadap Segregasi Opini', bg: 'Kekhawatiran bahwa optimasi engagement pada algoritma rekomendasi memicu polarisasi masyarakat ke dalam echo chambers.', dataset: 'Model jaringan Small-World Watts-Strogatz dengan distribusi preferensi topik awal.', method: 'Simulasi berbasis agen dengan model keyakinan Bounded Confidence Hegselmann-Krause yang dimodifikasi fungsi objektif rekomendasi.', contrib: 'Mengidentifikasi titik batas kritis (tipping point) bobot rekomendasi yang memicu transisi dari konsensus menuju polarisasi permanen.' }
+        ];
+
+        function renderResearchProblems() {
+            const container = document.getElementById('research-problems-area');
+            container.innerHTML = '';
+            researchProblemsData.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3";
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-bold text-slate-900 text-sm">${p.title}</h4>
+                        <span class="text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-semibold">${p.domain}</span>
+                    </div>
+                    <p class="text-xs text-slate-600"><strong>Masalah:</strong> ${p.prob}</p>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1 text-[11px]">
+                        <div><strong class="text-slate-800">Data:</strong> <span class="text-slate-600">${p.data}</span></div>
+                        <div><strong class="text-slate-800">Metode:</strong> <span class="text-brand-700 font-mono">${p.method}</span></div>
+                        <div><strong class="text-slate-800">Output:</strong> <span class="text-slate-600">${p.output}</span></div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderThesisTopics() {
+            const container = document.getElementById('thesis-topics-area');
+            container.innerHTML = '';
+            thesisTopicsData.forEach((t, i) => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl border border-brand-200 shadow-md space-y-4";
+                card.innerHTML = `
+                    <div class="flex items-center space-x-3 border-b border-slate-200 pb-3">
+                        <span class="bg-brand-600 text-white font-bold px-3 py-1 rounded-lg text-xs">Topik Skripsi ${i+1}</span>
+                        <h3 class="font-bold text-slate-900 text-base">${t.title}</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4 text-xs">
+                        <div class="space-y-2">
+                            <strong class="text-slate-900">1. Latar Belakang Permasalahan:</strong>
+                            <p class="text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200 leading-relaxed">${t.bg}</p>
+                        </div>
+                        <div class="space-y-2">
+                            <strong class="text-slate-900">2. Kebutuhan Dataset:</strong>
+                            <p class="text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200 leading-relaxed">${t.dataset}</p>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4 text-xs">
+                        <div class="space-y-2">
+                            <strong class="text-slate-900">3. Rancangan Metodologi:</strong>
+                            <p class="text-slate-600 bg-slate-50 p-3 rounded-xl border border-slate-200 leading-relaxed font-mono">${t.method}</p>
+                        </div>
+                        <div class="space-y-2">
+                            <strong class="text-slate-900">4. Kontribusi Ilmiah Skripsi:</strong>
+                            <p class="text-slate-600 bg-brand-50 p-3 rounded-xl border border-brand-200 leading-relaxed text-brand-900 font-semibold">${t.contrib}</p>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function switchRisetTab(tab) {
+            const resArea = document.getElementById('research-problems-area');
+            const theArea = document.getElementById('thesis-topics-area');
+            const btnRes = document.getElementById('btn-show-research');
+            const btnThe = document.getElementById('btn-show-thesis');
+
+            if (tab === 'research') {
+                resArea.classList.remove('hidden');
+                theArea.classList.add('hidden');
+                btnRes.className = "px-4 py-2 font-bold text-sm rounded-xl bg-brand-600 text-white";
+                btnThe.className = "px-4 py-2 font-bold text-sm rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200";
+            } else {
+                resArea.classList.add('hidden');
+                theArea.classList.remove('hidden');
+                btnRes.className = "px-4 py-2 font-bold text-sm rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200";
+                btnThe.className = "px-4 py-2 font-bold text-sm rounded-xl bg-brand-600 text-white";
+            }
+        }
+
+        // ROADMAP DATA & RENDER
+        const roadmapSteps = [
+            { stage: 'Tahap 1', name: 'Landasan Matematika & Logika Komputasi', time: 'Semester 1-2', focus: 'Aljabar Linier (Matriks, Eigenvector), Teori Graf Dasar, Probabilitas & Pemrograman Python NumPy.' },
+            { stage: 'Tahap 2', name: 'Struktur Data Lanjut & Algoritma Graf', time: 'Semester 3-4', focus: 'Adjacency Matrix/List, Traversal BFS/DFS, Dijkstra, Pustaka NetworkX, SciPy Sparse & Gephi.' },
+            { stage: 'Tahap 3', name: 'Social Network Analysis (SNA)', time: 'Semester 4-5', focus: 'Metrik Sentralitas (Degree, Betweenness, Closeness, PageRank), Model Skala-Bebas, Deteksi Komunitas Louvain/Leiden.' },
+            { stage: 'Tahap 4', name: 'Pembelajaran Mesin & Graph Embedding', time: 'Semester 5-6', focus: 'Node Classification, Link Prediction, Vektor Laten Laten DeepWalk & Node2Vec dengan Scikit-Learn.' },
+            { stage: 'Tahap 5', name: 'Graph Neural Networks (GNN)', time: 'Semester 6-7', focus: 'Message Passing Paradigm, Arsitektur GCN, GAT, GraphSAGE menggunakan PyTorch Geometric (PyG).' },
+            { stage: 'Tahap 6', name: 'Riset Lanjutan & Implementasi Skripsi', time: 'Semester 7-8', focus: 'Graf Heterogen & Dinamis (TGN), GraphRAG + LLM Integration, Penulisan Draf Tugas Akhir Skripsi.' }
+        ];
+
+        function renderRoadmap() {
+            const container = document.getElementById('roadmap-timeline');
+            container.innerHTML = '';
+            roadmapSteps.forEach(s => {
+                const item = document.createElement('div');
+                item.className = "relative space-y-1";
+                item.innerHTML = `
+                    <div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-brand-600 border-2 border-white"></div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded">${s.stage}</span>
+                        <span class="text-xs text-slate-400 font-semibold">${s.time}</span>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm">${s.name}</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">${s.focus}</p>
+                `;
+                container.appendChild(item);
+            });
+        }
+    </script>
+</body>
+</html>
